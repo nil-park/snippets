@@ -1,22 +1,14 @@
 /*
- * Adopt codebase from https://www.hackerrank.com/challenges/mark-and-toys
+ * Solve https://www.hackerrank.com/challenges/mark-and-toys
  */
 
 #include <bits/stdc++.h>
+#include "helper.h"
 
 using namespace std;
 
-/*
- * Complete the 'maximumToys' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts following parameters:
- *  1. INTEGER_ARRAY prices
- *  2. INTEGER k
- */
-
 int maximumToys(vector<int> prices, int k) {
-    return 3;
+    return getConseqCountFromHead(prices, 0, prices.size());
 }
 
 int main(int argc, char* argv[])
