@@ -76,5 +76,5 @@ int main(int argc, char* argv[])
     printf("\n\033[96mExpected:\033[0m\n\n");
     printf("\033[93m%d\033[0m\n\n", gt);
 
-    return 0;
+    return out == gt ? 0 : 3;
 }
