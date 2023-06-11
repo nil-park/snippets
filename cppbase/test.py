@@ -37,15 +37,15 @@ for k in keys:
 
         # wait for process then measure the execution time.
         try:
-            returncode = p.wait(2.0)
+            returncode = p.wait(30.0)
             t1 = time()
         except subprocess.TimeoutExpired as e:
-            print(f"\033[91m----- Testcase failed on TC number {k}!! -----\033[0m\n")
+            print(f"\033[91m----- Testcase failed on TC number {k}!! Timeout!! -----\033[0m\n")
             p.kill()
             continue
 
         if p.returncode != 0:
-            print(f"\033[91m----- Testcase failed on TC number {k}!! -----\033[0m\n")
+            print(f"\033[91m----- Testcase failed on TC number {k} in {(t1-t0)*1e+3:.3f}ms -----\033[0m\n")
             print("\033[95m--- STDERR:\033[0m")
             print(p.stderr.read().decode('utf-8'))
             print("\033[95m--- STDOUT:\033[0m")
