@@ -24,7 +24,11 @@ if p.returncode != 0:
     print("\n\033[91mCompile error!!\033[0m\n")
     exit(1)
 
-for k, i in inputs.items():
+keys = list(inputs.keys())
+keys.sort(reverse=True)
+
+for k in keys:
+    i = inputs[k]
     if k in outputs:
         o = outputs[k]
 
