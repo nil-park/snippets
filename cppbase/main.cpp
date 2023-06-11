@@ -1,5 +1,5 @@
 /*
- * Adopt codebase from https://www.hackerrank.com/challenges/mark-and-toys
+ * This program solves https://leetcode.com/problems/count-of-integers
  */
 
 #include <bits/stdc++.h>
@@ -15,9 +15,12 @@ using namespace std;
  *  2. INTEGER k
  */
 
-int maximumToys(vector<int> prices, int k) {
-    return 0;
-}
+class Solution {
+public:
+    int count(string num1, string num2, int min_sum, int max_sum) {
+        return 11;
+    }
+};
 
 int main(int argc, char* argv[])
 {
@@ -36,36 +39,21 @@ int main(int argc, char* argv[])
     printf("\n\033[96mInputs:\033[0m\n\n");
 
     // read first line of code
-    int n, k;
-    fscanf(fp, "%d %d", &n, &k);
-    printf("Size of array (n) is \033[93m%d\033[0m\n", n);
-    printf("Mark's budget (k) is \033[93m%d\033[0m\n", k);
-
-    // read array elements
-    printf("\nPrices: \033[93m");
-    vector<int> prices(n);
-    for (int i = 0; i < n; i++) {
-        fscanf(fp, "%d", &prices[i]);
-        printf("%d ", prices[i]);
-    }
-    printf("\033[0m\n");
-
-    /* Read all the line of codes.
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t readBytes;
-    while ((readBytes = getline(&line, &len, fp)) != -1) {
-        printf("Retrieved line of length %zu:\n", readBytes);
-        printf("%s\n", line);
-    }
-    if (line)
-        free(line);
-    */
+    char buf[100];
+    int min_sum, max_sum;
+    fscanf(fp, "%s", buf);
+    string num1(buf);
+    fscanf(fp, "%s", buf);
+    string num2(buf);
+    fscanf(fp, "%d", &min_sum);
+    fscanf(fp, "%d", &max_sum);
+    printf("Num1 and Num2 are \033[93m%s, %s\033[0m\n", num1.c_str(), num2.c_str());
+    printf("MinSum and MaxSum are \033[93m%d, %d\033[0m\n", min_sum, max_sum);
 
     fclose(fp);
 
     // Open the output test case file.
-    fp = fopen(argv[1], "r");
+    fp = fopen(argv[2], "r");
     if (fp == NULL) {
         fprintf(stderr, "Output file not found at %s", argv[1]);
         return 2;
@@ -77,7 +65,8 @@ int main(int argc, char* argv[])
     fclose(fp);
 
     // run the function
-    int out = maximumToys(prices, k);
+    Solution sol;
+    int out = sol.count(num1, num2, min_sum, max_sum);
 
     printf("\n\033[96mOutput:\033[0m\n\n");
     if (out == gt) printf("\033[92m"); else printf("\033[91m");
