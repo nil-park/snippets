@@ -2,6 +2,7 @@ import subprocess
 import re
 import os
 from os.path import join as ospj
+from time import time
 
 TCDIR = "testcases"
 
@@ -26,7 +27,19 @@ if p.returncode != 0:
 for k, i in inputs.items():
     if k in outputs:
         o = outputs[k]
+
+        t0 = time()
         p = subprocess.Popen(["./a.out", ospj(TCDIR, i), ospj(TCDIR, o)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        # wait for process then measure the execution time.
+        try:
+            returncode = p.wait(2.0)
+            t1 = time()
+        except subprocess.TimeoutExpired as e:
+            print(f"\033[91m----- Testcase failed on TC number {k}!! -----\033[0m\n")
+            p.kill()
+            continue
+
         if p.returncode != 0:
             print(f"\033[91m----- Testcase failed on TC number {k}!! -----\033[0m\n")
             print("\033[95m--- STDERR:\033[0m")
@@ -34,3 +47,5 @@ for k, i in inputs.items():
             print("\033[95m--- STDOUT:\033[0m")
             print(p.stdout.read().decode('utf-8'))
             break
+        else:
+            print(f"\033[92m----- Testcase passed on TC number {k} in {(t1-t0)*1e+3:.3f}ms -----\033[0m")
