@@ -32,3 +32,9 @@ After solving the problem, then delete the branch.
 git checkout main
 git branch -D "solve/lc/count-of-integers"
 ```
+
+# Run all testcases
+```
+python test.py
+```
+main function should be return nonzero value if the gt doesn't match the output.
