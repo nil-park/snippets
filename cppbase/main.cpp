@@ -16,7 +16,7 @@ using namespace std;
  */
 
 int maximumToys(vector<int> prices, int k) {
-    return 0;
+    return 3;
 }
 
 int main(int argc, char* argv[])
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
     fclose(fp);
 
     // Open the output test case file.
-    fp = fopen(argv[1], "r");
+    fp = fopen(argv[2], "r");
     if (fp == NULL) {
         fprintf(stderr, "Output file not found at %s", argv[1]);
         return 2;
@@ -87,5 +87,5 @@ int main(int argc, char* argv[])
     printf("\n\033[96mExpected:\033[0m\n\n");
     printf("\033[93m%d\033[0m\n\n", gt);
 
-    return 0;
+    return out == gt ? 0 : 3;
 }
