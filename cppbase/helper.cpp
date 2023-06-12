@@ -1,6 +1,93 @@
-#include <bits/stdc++.h>
+#include "helper.h"
 
 using namespace std;
+
+void ltrim(string &str) {
+    auto p = str.end();
+    for (auto it = str.begin(); it < str.end(); it++) {
+        if (!isspace(*it)) {
+            p = it;
+            break;
+        }
+    }
+    if (p != str.begin()) {
+        if (p == str.end()) {
+            str.clear();
+        }
+        else {
+            str.erase(str.begin(), p);
+        }
+    }
+}
+
+void rtrim(string &str) {
+    auto p = str.rend();
+    for (auto it = str.rbegin(); it < str.rend(); it++) {
+        if (!isspace(*it)) {
+            p = it;
+            break;
+        }
+    }
+    if (p != str.rbegin()) {
+        if (p == str.rend()) {
+            str.clear();
+        }
+        else {
+            str.erase(p.base(), str.end());
+        }
+    }
+}
+
+void trim(string &str) {
+    ltrim(str);
+    rtrim(str);
+}
+
+FileReader::FileReader(const std::string& path) {
+    fp = fopen(path.c_str(), "r");
+}
+
+FileReader::FileReader(const char *path) {
+    fp = fopen(path, "r");
+}
+
+FileReader::~FileReader() {
+    close();
+}
+
+bool FileReader::isOpen() {
+    return fp != nullptr;
+}
+
+void FileReader::close() {
+    if (fp != nullptr) {
+        fclose(fp);
+        fp = nullptr;
+    }
+}
+
+std::string FileReader::readAllText() {
+    fseek(fp, 0, SEEK_END);
+    long fsize = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+
+    std::string s(fsize, 0);
+    fread(s.data(), 1, fsize, fp);
+    return s;
+}
+
+void FileReader::readIntegerArray(std::vector<int>& dst, size_t n) {
+    dst.resize(n);
+    for (int i = 0; i < n; i++) {
+        fscanf(fp, "%d", &dst[i]);
+    }
+}
+
+int FileReader::readInteger() {
+    int x;
+    fscanf(fp, "%d", &x);
+    return x;
+}
 
 // 배열의 특정 위치(s)로 부터 오른쪽으로 연속적인 값의 개수를 구한다.
 int getConseqCountFromHead(vector<int>& data, int s, int e) {

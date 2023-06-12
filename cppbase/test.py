@@ -19,7 +19,7 @@ for f in flist:
         outputs[n] = f
 
 # first compile the main function.
-p = subprocess.run(["g++", "-g", "-std=c++20", "main.cpp"])
+p = subprocess.run(["g++", "-g", "-std=c++20", "main.cpp", "helper.cpp"])
 if p.returncode != 0:
     print("\n\033[91mCompile error!!\033[0m\n")
     exit(1)
