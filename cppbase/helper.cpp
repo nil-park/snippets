@@ -76,6 +76,12 @@ std::string FileReader::readAllText() {
     return s;
 }
 
+std::string FileReader::readLine(int bufferSize) {
+    unique_ptr<char> buf(new char[bufferSize]);
+    fscanf(fp, "%s", buf);
+    return std::string(buf.get());
+}
+
 void FileReader::readIntegerArray(std::vector<int>& dst, size_t n) {
     dst.resize(n);
     for (int i = 0; i < n; i++) {

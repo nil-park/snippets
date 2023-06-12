@@ -13,6 +13,7 @@ class FileReader {
         bool isOpen(); // 파일이 열렸는지 여부
         void close(); // 파일을 미리 닫음
         std::string readAllText(); // 전체 파일 읽기
+        std::string readLine(int bufferSize); // 한 줄 읽기
         void readIntegerArray(std::vector<int>& dst, size_t n); // 길이가 정해진 정수 배열을 읽는다.
         int readInteger(); // 정수 하나를 읽어온다.
 };
