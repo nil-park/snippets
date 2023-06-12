@@ -19,8 +19,8 @@ int main(int argc, char* argv[])
     }
 
     // Open the input test case file.
-    FILE * fp = fopen(argv[1], "r");
-    if (fp == NULL) {
+    FileReader reader_i(argv[1]);
+    if (!reader_i.isOpen()) {
         fprintf(stderr, "Input file not found at %s", argv[1]);
         return 2;
     }
@@ -28,45 +28,29 @@ int main(int argc, char* argv[])
     printf("\n\033[96mInputs:\033[0m\n\n");
 
     // read first line of code
-    int n, k;
-    fscanf(fp, "%d %d", &n, &k);
+    int n = reader_i.readInteger();
+    int k = reader_i.readInteger();
     printf("Size of array (n) is \033[93m%d\033[0m\n", n);
     printf("Mark's budget (k) is \033[93m%d\033[0m\n", k);
 
     // read array elements
     printf("\nPrices: \033[93m");
-    vector<int> prices(n);
-    for (int i = 0; i < n; i++) {
-        fscanf(fp, "%d", &prices[i]);
+    vector<int> prices;
+    reader_i.readIntegerArray(prices, n);
+    for (int i = 0; i < n; i++)
         printf("%d ", prices[i]);
-    }
     printf("\033[0m\n");
-
-    /* Read all the line of codes.
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t readBytes;
-    while ((readBytes = getline(&line, &len, fp)) != -1) {
-        printf("Retrieved line of length %zu:\n", readBytes);
-        printf("%s\n", line);
-    }
-    if (line)
-        free(line);
-    */
-
-    fclose(fp);
+    reader_i.close();
 
     // Open the output test case file.
-    fp = fopen(argv[2], "r");
-    if (fp == NULL) {
-        fprintf(stderr, "Output file not found at %s", argv[1]);
+    FileReader reader_o(argv[2]);
+    if (!reader_o.isOpen()) {
+        fprintf(stderr, "Output file not found at %s", argv[2]);
         return 2;
     }
 
     // read first line of code
-    int gt;
-    fscanf(fp, "%d", &gt);
-    fclose(fp);
+    int gt = reader_o.readInteger();
 
     // run the function
     int out = maximumToys(prices, k);
