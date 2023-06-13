@@ -72,13 +72,13 @@ std::string FileReader::readAllText() {
     fseek(fp, 0, SEEK_SET);
 
     std::string s(fsize, 0);
-    fread(s.data(), 1, fsize, fp);
+    fread((void *)s.data(), 1, fsize, fp);
     return s;
 }
 
 std::string FileReader::readLine(int bufferSize) {
     unique_ptr<char> buf(new char[bufferSize]);
-    fscanf(fp, "%s", buf);
+    fscanf(fp, "%s", buf.get());
     return std::string(buf.get());
 }
 
@@ -107,6 +107,7 @@ int getConseqCountFromHead(vector<int>& data, int s, int e) {
     }
     return cnt;
 }
+
 // 배열의 특정 위치(e - 1)로 부터 왼쪽으로 연속적인 값의 개수를 구한다.
 int getConseqCountFromTail(vector<int>& data, int s, int e) {
     int cnt = 1;
@@ -150,9 +151,49 @@ bool isDescending(vector<int>& data, int s, int e) {
     return true;
 }
 
+uint64_t factorial(uint64_t n) { // maximum n is 20
+    if (n < 2) return 1;
+    uint64_t sum = n;
+    for (uint64_t x = n - 1; x >= 2; x--)
+        sum *= x;
+    return sum;
+}
+
+uint64_t permutation(uint64_t n, uint64_t r) {
+    if (n <= r) return factorial(n);
+    uint64_t sum = n;
+    uint64_t bound = n - r;
+    for (uint64_t x = n - 1; x > bound; x--)
+        sum *= x;
+    return sum;
+}
+
+int combination(int n, int r) {
+    return 0;
+}
+
+template <typename T> vector<T> combination(const vector<T>& arr, size_t r) {
+    // vector<bool> indices(arr.size(), false);
+    // // fill_n(arr.begin(), size_t r, )
+    // for(int i = 0; i < r; i++)
+    //     temp[i] = true;
+ 
+    // do {
+    //     for (int i = 0; i < arr.size(); ++i) {
+    //         if (temp[i])
+    //             cout << arr[i] << ' ';
+    //     }
+    //     cout << endl;
+    // } while (prev_permutation(temp.begin(), temp.end()));
+    return vector<T>();
+}
+
 /*
  * TODOS
  * integer pair의 comparator 만들기
+ * lambda function for sorting sort(arr.begin(), arr.end(), [](auto a, auto b){return a < b;})
  * merge sort MOCK 디자인
  * modulo 연산을 이용해 정수 최대값 초과하지 않게 잘라주는 wrapper 함수 구현
  */
+
+

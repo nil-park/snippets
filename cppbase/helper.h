@@ -34,5 +34,20 @@ int getMinValuePosition(std::vector<int>& data, int s, int e);
 bool isAscending(std::vector<int>& data, int s, int e);
 // 배열이 내림차순인지 확인한다.
 bool isDescending(std::vector<int>& data, int s, int e);
+// 정수 pair에서 비교 함수를 정의한다.
+typedef std::pair<int, int> IntPair;
+auto compareIntPair = [](IntPair const& x, IntPair const& y) -> bool {
+    if (x.first < y.first)
+        return true;
+    else if (x.first == y.first)
+        return x.second < y.second;
+    else
+        return false;
+};
+uint64_t factorial(uint64_t n);
+uint64_t permutation(uint64_t n, uint64_t r);
+// 컴비네이션을 구한다.
+int combination(int n, int r); // only count
+template <typename T> std::vector<T> combination(const std::vector<T>& arr, int n, int r);
 
 #endif
